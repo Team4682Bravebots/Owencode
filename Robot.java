@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
    
   public void joyStickVaratation() {
     //gets joysitck value, set value percentage to left trigger state. Pushed = 75% throttle unpushed = 50% throttle
-    boolean isPressed = rightStick.getRawButton(3);
+    boolean isPressed = rightStick.getRawButton(1);
       if(isPressed) {
         stickSpeed = 0.75;
       }

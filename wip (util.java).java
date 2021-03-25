@@ -40,7 +40,11 @@ public class Util extends Robot{
         if (leftTriger) {
           
           lockedRightStickAxisValue = newRightStickYAxisValue;
-          lockedLeftStickAxisValue = newLeftStickYAxisValue; 
-
+          lockedLeftStickAxisValue = newRightStickYAxisValue;
         }
+        else {
+          lockedRightStickAxisValue = newRightStickYAxisValue;
+          lockedLeftStickAxisValue = newLeftStickYAxisValue;
+
+}
 }

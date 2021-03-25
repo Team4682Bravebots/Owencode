@@ -39,6 +39,8 @@ public class Util extends Robot{
         leftTriger = getRawButton(1)
         if (leftTriger) {
           
+          lockedRightStickAxisValue = newRightStickYAxisValue;
+          lockedLeftStickAxisValue = newLeftStickYAxisValue; 
 
         }
 }

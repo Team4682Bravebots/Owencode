@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
   double leftStickYAxisValue;
   double newLeftStickYAxisValue;
   double stickSpeed;
+  double lockedRightStickAxisValue;
+  double lockedLeftStickAxisValue; 
 
 
   boolean leftTriger; 
@@ -96,8 +98,8 @@ public class Robot extends TimedRobot {
     //rightWheels.tankDrive(newRightStickYAxisValue, newLeftStickYAxisValue);
     //leftWheels.tankDrive(newRightStickYAxisValue, newLeftStickYAxisValue);
 
-    rightWheels.tankDrive(newRightStickYAxisValue, newLeftStickYAxisValue);
-    leftWheels.tankDrive(newRightStickYAxisValue, newLeftStickYAxisValue);
+    rightWheels.tankDrive(lockedRightStickAxisValue, lockedLeftStickAxisValue);
+    leftWheels.tankDrive(lockedRightStickAxisValue, lockedLeftStickAxisValue);
 
 
 

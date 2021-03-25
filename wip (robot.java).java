@@ -87,6 +87,7 @@ public class Robot extends TimedRobot {
 
     limitL = new Util(); 
     limitR = new Util();
+    turnLock = new Util();
     
 
    }

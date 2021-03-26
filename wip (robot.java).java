@@ -5,7 +5,6 @@
 |   _  <  |      /      /  /_\  \  \      /   |   __|  |   _  <  |  |  |  |     |  |        \   \    
 |  |_)  | |  |\  \----./  _____  \  \    /    |  |____ |  |_)  | |  `--'  |     |  |    .----)   |   
 |______/  | _| `._____/__/     \__\  \__/     |_______||______/   \______/      |__|    |_______/    
-
                                         The Team Strikes Back! 
                                             -frosty :D
 */
@@ -56,62 +55,53 @@ public class Robot extends TimedRobot {
   //left wheels are controlled by pwm motor controllers named 1 and 3 
   @Override
   public void robotInit() {
-   
+
+    //sets variables right wheels and left wheels to the motor controllers
     rightWheels = new DifferentialDrive(new PWMVictorSPX(0), new PWMVictorSPX(2));
     leftWheels = new DifferentialDrive(new PWMVictorSPX (1), new PWMVictorSPX(3));
-    //switches each track direction (0=foward 1=reverse) (drive train is mirrored therfore 0,1)
+    //joystick ports
     rightStick = new Joystick(0);
     leftStick = new Joystick(1);
   }
 
    
   public void joyStickVaratation() {
-    //gets joysitck value, set value percentage to left trigger state. Pushed = 75% throttle unpushed = 50% throttle
-    /*boolean isPressed = rightStick.getRawButton(1);
-      if(isPressed) {
-        stickSpeed = 0.75;
-      }
-      else {
-        stickSpeed = 0.05; 
-      }
-
-      //stickSpeed = 0.05;
-      */
-       
-      //sets the value 
+    stickSpeed = 0.05;
+    //measures joystick value with .getRawAxis and sets it to a new double variable
     rightStickYAxisValue = rightStick.getRawAxis(1);
     newRightStickYAxisValue = stickSpeed * rightStickYAxisValue;
     
     leftStickYAxisValue = leftStick.getRawAxis(1);
     newLeftStickYAxisValue = stickSpeed * leftStickYAxisValue;
 
+
+    //applies the util limmit methods, see Util.java
     limitL = new Util(); 
     limitR = new Util();
 
+  }
+
   public double turnLock(doubel value)
-      
+    //if the left trigger is pulled, both tracks will follow the left joystick
    LeftTriger = getRawButton(1)
-        if (leftTriger) {
+     if (leftTriger) {
           lockedRightStickAxisValue.follow(newLeftStickYAxisValue);
           lockedLeftStickAxisValue.follow(newLeftStickYAxisValue);
         
         }
-        else {
+     else {
          lockedRightStickAxisValue.follow(newRightStickYAxisValue);
          lockedLeftStickAxisValue.follow(newLeftStickYAxisValue);
-
-    }
+         }
     
 
    }
  
-   // sets wheel speed to adjusted joystick Y value. 
+  
   @Override
   public void teleopPeriodic() {
 
-    //rightWheels.tankDrive(newRightStickYAxisValue, newLeftStickYAxisValue);
-    //leftWheels.tankDrive(newRightStickYAxisValue, newLeftStickYAxisValue);
-
+    //sets each track to the adjusted joystick values
     rightWheels.tankDrive(lockedRightStickAxisValue, lockedLeftStickAxisValue);
     leftWheels.tankDrive(lockedRightStickAxisValue, lockedLeftStickAxisValue);
 
@@ -121,7 +111,3 @@ public class Robot extends TimedRobot {
 
 }
   
-
-
-
-

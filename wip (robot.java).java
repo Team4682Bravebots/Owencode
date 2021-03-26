@@ -87,7 +87,20 @@ public class Robot extends TimedRobot {
 
     limitL = new Util(); 
     limitR = new Util();
-    turnLock = new Util();
+
+  public double turnLock(doubel value)
+      
+   LeftTriger = getRawButton(1)
+        if (leftTriger) {
+          lockedRightStickAxisValue.follow(newLeftStickYAxisValue);
+          lockedLeftStickAxisValue.follow(newLeftStickYAxisValue);
+        
+        }
+        else {
+         lockedRightStickAxisValue.follow(newRightStickYAxisValue);
+         lockedLeftStickAxisValue.follow(newLeftStickYAxisValue);
+
+    }
     
 
    }

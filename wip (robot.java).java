@@ -25,10 +25,6 @@ public class Robot extends TimedRobot {
   protected Joystick rightStick;
   protected Joystick leftStick;
   
-  
-  private Util limitL;
-  private Util limitR;
-
   double rightStickYAxisValue;
   double newRightStickYAxisValue;
   double leftStickYAxisValue;
@@ -36,7 +32,8 @@ public class Robot extends TimedRobot {
   double stickSpeed;
   double finalRightStickAxisValue;
   double finalLeftStickAxisValue; 
-  double
+  double almostFinalLeftStickAxisValue;
+  double almostFinalRightStickAxisValue;
 
 
   boolean leftTriger; 
@@ -76,27 +73,26 @@ public class Robot extends TimedRobot {
     newLeftStickYAxisValue = stickSpeed * leftStickYAxisValue;
 
 
-    //applies the util limmit methods, see Util.java
-    limitL = new Util(); 
-    limitR = new Util();
-
   }
 
-  public double turnLock(doubel value)
+  public double turnLock(double value) {
     //if the left trigger is pulled, both tracks will follow the left joystick
-   LeftTriger = getRawButton(1)
-     if (leftTriger) {
-          almostFinalRightStickAxisValue.follow(newLeftStickYAxisValue);
-          almostFinalLeftStickAxisValue.follow(newLeftStickYAxisValue);
-          
-          finalLeftStickAxisValue = 1 * almostFinalLeftStickAxisValue; 
+   leftTriger = leftStick.getRawButton(1);
 
+     if (leftTriger) {
+          almostFinalRightStickAxisValue = newLeftStickYAxisValue;
+          almostFinalLeftStickAxisValue = newLeftStickYAxisValue;
+          
+          finalLeftStickAxisValue = 1 * almostFinalLeftStickAxisValue;
 
         }
      else {
-         finalRightStickAxisValue.follow(newRightStickYAxisValue);
-         finalLeftStickAxisValue.follow(newLeftStickYAxisValue);
+         finalRightStickAxisValue = newRightStickYAxisValue;
+         finalLeftStickAxisValue = newLeftStickYAxisValue;
          }
+         return value;
+
+  
     
 
    }
@@ -106,8 +102,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     //sets each track to the adjusted joystick values
-    rightWheels.tankDrive(lockedRightStickAxisValue, finalLeftStickAxisValue);
-    leftWheels.tankDrive(lockedRightStickAxisValue, finlalLeftStickAxisValue);
+    rightWheels.tankDrive(finalRightStickAxisValue, finalLeftStickAxisValue);
+    leftWheels.tankDrive(finalRightStickAxisValue, finalLeftStickAxisValue);
 
 
 

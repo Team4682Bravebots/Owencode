@@ -1,3 +1,4 @@
+
 package frc.robot;
 
 public class Util extends Robot{
@@ -35,7 +36,7 @@ public class Util extends Robot{
         }
       
 
-    public double turnLock(doubel value)
+  /*  public double turnLock(doubel value)
         leftTriger = getRawButton(1)
         if (leftTriger) {
           
@@ -44,7 +45,7 @@ public class Util extends Robot{
         }
         else {
           lockedRightStickAxisValue = newRightStickYAxisValue;
-          lockedLeftStickAxisValue = newLeftStickYAxisValue;
+          lockedLeftStickAxisValue = newLeftStickYAxisValue;  */
 
 }
 }

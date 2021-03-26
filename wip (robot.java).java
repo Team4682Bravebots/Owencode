@@ -34,8 +34,9 @@ public class Robot extends TimedRobot {
   double leftStickYAxisValue;
   double newLeftStickYAxisValue;
   double stickSpeed;
-  double lockedRightStickAxisValue;
-  double lockedLeftStickAxisValue; 
+  double finalRightStickAxisValue;
+  double finalLeftStickAxisValue; 
+  double
 
 
   boolean leftTriger; 
@@ -85,13 +86,16 @@ public class Robot extends TimedRobot {
     //if the left trigger is pulled, both tracks will follow the left joystick
    LeftTriger = getRawButton(1)
      if (leftTriger) {
-          lockedRightStickAxisValue.follow(newLeftStickYAxisValue);
-          lockedLeftStickAxisValue.follow(newLeftStickYAxisValue);
-        
+          almostFinalRightStickAxisValue.follow(newLeftStickYAxisValue);
+          almostFinalLeftStickAxisValue.follow(newLeftStickYAxisValue);
+          
+          finalLeftStickAxisValue = 1 * almostFinalLeftStickAxisValue; 
+
+
         }
      else {
-         lockedRightStickAxisValue.follow(newRightStickYAxisValue);
-         lockedLeftStickAxisValue.follow(newLeftStickYAxisValue);
+         finalRightStickAxisValue.follow(newRightStickYAxisValue);
+         finalLeftStickAxisValue.follow(newLeftStickYAxisValue);
          }
     
 
@@ -102,8 +106,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     //sets each track to the adjusted joystick values
-    rightWheels.tankDrive(lockedRightStickAxisValue, lockedLeftStickAxisValue);
-    leftWheels.tankDrive(lockedRightStickAxisValue, lockedLeftStickAxisValue);
+    rightWheels.tankDrive(lockedRightStickAxisValue, finalLeftStickAxisValue);
+    leftWheels.tankDrive(lockedRightStickAxisValue, finlalLeftStickAxisValue);
 
 
 

@@ -2,8 +2,6 @@ package frc.robot;
 
 public class Util extends Robot{
 
-
-
   
    //Sets limits for controller imputs (so the values cant go above 1 or below -1). 
  
@@ -34,5 +32,4 @@ public class Util extends Robot{
           return newRightStickYAxisValue;
         }
       
-
 }

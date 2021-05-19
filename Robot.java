@@ -85,10 +85,13 @@ public class Robot extends TimedRobot {
     while (xBox.getRawButton(0)){
       arm1.inTakeSpin();
     }
-    while (xBox.getRawButton(9)){
+    while (xBox.getRawButton(6)){
       arm1.inTakeStop();
     }
-
+    while (xBox.getRawButton(9)) {
+      arm1.intakeUnSpin();
+    }
+    
     //armLifter
     while (xBox.getRawButton(5)){
       arm2.armUp();

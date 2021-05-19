@@ -1,6 +1,5 @@
 # Owen 2021
 
+All done!!!!
 
-Code with a version is a stable working version.
-
-Wip files are work in progress. 
+The //config dosent work quite yet, but those ports are where evrything is set as. 

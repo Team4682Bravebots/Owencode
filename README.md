@@ -16,18 +16,34 @@ Down = D-Pad down
 Debug = D-Pad left 
 
 
--
+
 **Intake** 
+
+
 Spin In = Left trigger 
+
+
 Spin out = Right trigger 
+
+
 Stop = B button 
--
+
 **Arm Lift**
+
+
 Up = Y button 
+
+
 Down = A button 
--
+
+
+
 **EMERGENCY STOP**
+
+
 Stop = X button 
+
+
 - 
 Controller Button Mapping 
 https://1drv.ms/u/s!AtnniIfR4zy-gZ4beGPOn7DQC04xRA

@@ -4,8 +4,6 @@ All done!!!!
 -
 The //config dosent work quite yet, but those ports are where evrything is set as. 
 -
--
--
 **Climber**
 Up = D-Pad up
 Down = D-Pad down 

@@ -1,7 +1,7 @@
 # Owen 2021
 
 -
-The //config 
+Put motor and object ports in the //config section
 -
 **Climber**
 

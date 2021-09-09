@@ -99,17 +99,20 @@ public class Robot extends TimedRobot {
     //climber
     if (xBox.getRawButton(1)) {
       climbMotor.set(1); 
-
     }else{
       climbMotor.set(0);
     }
+
     if (xBox.getRawButton(4)){
       climbMotor.set(-1); 
-
+    } else {
+      climbMotor.set(0);
     }
+
     if (xBox.getRawButton(7)){
       climbMotor.set(0.3);
-
+    } else {
+      climbMotor.set(0);
     }
 
     //intake
@@ -119,29 +122,30 @@ public class Robot extends TimedRobot {
       inTake.set(0);
     }
  
-    
     if (xBox.getRawButton(6)){
       inTake.set(-1);
-
+    }else{
+      inTake.set(0);
     }
     
+
     //armLifter
     if (xBox.getRawButton(3)){
       liftMotor.set(2); 
 
-    }else{liftMotor.set(0);}
+    }else{liftMotor.set(0);
+    }
 
     if (xBox.getRawButton(2)){
       liftMotor.set(-1); 
-      
+    } else {
+      liftMotor.set(0);
     }
     
     //armLifter prenumatics 
     if (xBox.getRawButton(3)){
       armSolenoidUp.set(true);
       armSolenoidDown.set(false);
-    }else{
-    
     }
 
     if (xBox.getRawButton(2)){
@@ -153,7 +157,7 @@ public class Robot extends TimedRobot {
 
 
 
-  
+
 
 
 }

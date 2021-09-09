@@ -1,19 +1,16 @@
 # Owen 2021
 
-All done!!!!
 -
-The //config dosent work quite yet, but those ports are where evrything is set as. 
+The //config 
 -
 **Climber**
 
 
-Up = D-Pad up
+Up = Y Button 
 
 
-Down = D-Pad down 
-
-
-Debug = D-Pad left 
+Down = A Button
+ 
 
 
 
@@ -26,22 +23,20 @@ Spin In = Left trigger
 Spin out = Right trigger 
 
 
-Stop = B button 
-
 **Arm Lift**
 
 
-Up = Y button 
+Up = X button 
 
 
-Down = A button 
+Down = B button 
 
 
 
 **EMERGENCY STOP**
 
 
-Stop = X button 
+Stop = ??? prob should make this a thing...
 
 
 

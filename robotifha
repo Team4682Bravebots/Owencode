@@ -1,0 +1,225 @@
+/*
+.______   .______          ___   ____    ____  _______ .______     ______   .___________.    _______.
+|   _  \  |   _  \        /   \  \   \  /   / |   ____||   _  \   /  __  \  |           |   /       |
+|  |_)  | |  |_)  |      /  ^  \  \   \/   /  |  |__   |  |_)  | |  |  |  | `---|  |----`  |   (----`
+|   _  <  |      /      /  /_\  \  \      /   |   __|  |   _  <  |  |  |  |     |  |        \   \    
+|  |_)  | |  |\  \----./  _____  \  \    /    |  |____ |  |_)  | |  `--'  |     |  |    .----)   |   
+|______/  | _| `._____/__/     \__\  \__/     |_______||______/   \______/      |__|    |_______/    
+                                        The Team Strikes Back! 
+                                            -frosty :D
+*/
+
+package frc.robot;
+
+//imports stuff 
+import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
+//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.GenericHID;
+
+
+
+//declares!
+public class Robot extends TimedRobot {
+  protected SpeedControllerGroup rightWheels;
+  protected SpeedControllerGroup leftWheels;
+  
+  
+  //config
+  public static final int intakePortLeft = 7;
+  public static final int intakePortRight =8;
+
+  public static final int liftMotorPort = 5; 
+
+  public static final int climberMotorPort = 6; 
+
+  public static final int colorWheelMotorPort = 0;
+/*
+  public static final int armSolenoidUpPort = 1;
+  public static final int armSolenoidDownPort = 0;
+
+  public static final int compressorOnePort = 2; 
+*/
+  //morots 
+  private PWMVictorSPX inTakeLeft;
+  private PWMVictorSPX inTakeRight; 
+  private PWMVictorSPX liftMotor;
+  private PWMVictorSPX climbMotor;
+  private PWMVictorSPX colorWheelMotor;
+ 
+
+  //human interface devices
+  private GenericHID xBox;
+  protected Joystick leftJoystick;
+  protected Joystick rightJoystick;
+  protected Joystick arcadeJoystick;
+
+ /* //prenumatics 
+  private Compressor compressorOne;
+  private Solenoid armSolenoidUp;
+  private Solenoid armSolenoidDown; 
+  public boolean compressorStatus; 
+*/
+  public DifferentialDrive robotDrive;
+  
+  public double rawArcadeJoystickY;
+  public double rawArcadeJoysitckZ;
+
+  public double arcadeJoystickY;
+  public double arcadeJoystickZ; 
+ 
+  
+
+  @Override
+  public void robotInit() {
+    
+    //human inferface devies
+    leftJoystick = new Joystick(0);
+    rightJoystick = new Joystick(1);
+    xBox = new XboxController(2);
+
+    arcadeJoystick = new Joystick(3);
+
+    //left and right motor sets
+    rightWheels = new SpeedControllerGroup(new PWMVictorSPX(4), new PWMVictorSPX(2));
+    leftWheels = new SpeedControllerGroup(new PWMVictorSPX (1), new PWMVictorSPX(3));
+    
+  
+
+    robotDrive = new DifferentialDrive(leftWheels, rightWheels);
+    
+
+    rawArcadeJoystickY = arcadeJoystick.getY();
+    rawArcadeJoysitckZ = arcadeJoystick.getZ();
+
+    arcadeJoystickZ = rawArcadeJoysitckZ * -0.5;
+    arcadeJoystickY = rawArcadeJoystickY * 1;
+
+
+    //doot 
+    inTakeLeft = new PWMVictorSPX(intakePortLeft);
+    inTakeRight = new PWMVictorSPX(intakePortRight); 
+
+    liftMotor = new PWMVictorSPX(liftMotorPort);
+    climbMotor = new PWMVictorSPX(climberMotorPort);
+    colorWheelMotor = new PWMVictorSPX(colorWheelMotorPort);
+
+    /*//preumatics 
+    compressorOne = new Compressor(compressorOnePort);
+    armSolenoidUp = new Solenoid(armSolenoidUpPort);
+    armSolenoidDown= new Solenoid(armSolenoidDownPort);
+    compressorOne.setClosedLoopControl(true);
+    armSolenoidUp.set(true);
+    armSolenoidDown.set(false);
+  */
+  }
+
+  @Override
+  public void autonomousPeriodic() {
+  
+  robotDrive.tankDrive(-0.6, -0.5);
+  
+  
+  }
+   
+  @Override
+  public void teleopPeriodic() {
+
+
+
+    
+
+    robotDrive.arcadeDrive(arcadeJoystick.getY() * 1, arcadeJoystick.getZ() * -1);
+    
+    //robotDrive.tankDrive(leftJoystick.getY(), rightJoystick.getY());
+    //robotDrive.tankDrive(leftJoystick.getX(), rightJoystick.getX());
+
+
+ 
+  
+
+   //climber
+    if (xBox.getRawButton(3)) {
+      climbMotor.set(0.5); 
+    }else{
+         if (xBox.getRawButton(9)){
+          climbMotor.set(-0.5); 
+    }else{
+           climbMotor.set(0);
+          }
+
+    //color wheel
+    if (xBox.getRawButton(2)) {
+      colorWheelMotor.set(0.25); 
+    }else{
+         if (xBox.getRawButton(10)){
+          colorWheelMotor.set(-0.25); 
+    }else{
+           colorWheelMotor.set(0);
+          }
+
+
+    //intake
+    if (xBox.getRawButton(5)){
+      inTakeLeft.set(-1);
+      inTakeRight.set(1);
+    }else{
+      if (xBox.getRawButton(6)){
+      inTakeLeft.set(1); 
+      inTakeRight.set(-1); 
+    }else{
+      inTakeLeft.set(0);
+      inTakeRight.set(0);
+    }
+  }
+    
+
+  
+
+    //armLifter
+    if (xBox.getRawButton(4)){
+      liftMotor.set(0.25); 
+    }else{
+     if (xBox.getRawButton(8)){
+      liftMotor.set(-0.25);
+    }else{
+     if (xBox.getRawButton(1)){
+     liftMotor.set(0);
+    }
+    }
+
+/*
+     if (xBox.getRawButton(1)){
+      liftMotor.set(-0.25);
+    }else{
+      liftMotor.set(0);
+    }
+    }
+    */
+   /* //armLifter prenumatics 
+    if (xBox.getRawButton(3)){
+      armSolenoidUp.set(true);
+      armSolenoidDown.set(false);
+    }
+
+    if (xBox.getRawButton(2)){
+      armSolenoidDown.set(true);
+      armSolenoidUp.set(false);
+    }
+*/
+  }
+
+
+
+
+}
+
+
+  }
+  }}

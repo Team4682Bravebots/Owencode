@@ -8,6 +8,7 @@ WPILib Documentation
 
 WPILib VSC Download
  > https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html
+
 Drivers station/ frc utitalties download 
  > https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/labview-setup.html
  (When prompted for a activation code restart computer with out closing any tabs, then relaunch the installer and it will skip the activation tab)

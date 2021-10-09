@@ -11,14 +11,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.CANCoder;
+
 
 
 public class Robot extends TimedRobot {
@@ -45,12 +48,10 @@ public class Robot extends TimedRobot {
   public static final int buttonB = 2;
   public static final int buttonX = 3; 
   public static final int buttonY = 4;
-
   public static final int buttonO1 = -1;
   public static final int buttonO2 = 8;
   public static final int leftStickDown = 9;
   public static final int rightStickDown = 10;
-
   public static final int bumperLeft = 5;
   public static final int bumperRight = 6;
 
@@ -59,18 +60,31 @@ public class Robot extends TimedRobot {
   public static WPI_TalonSRX frontRightMotor;
   public static WPI_TalonSRX backLeftMotor; 
   public static WPI_TalonSRX backRightMotor; 
-    //motor groups
-    public SpeedControllerGroup leftMotorGroup;
-    public SpeedControllerGroup rightMotorGroup;
-  
+  /*
+  need to reverse the direction of the right drive motors 
+  so that they spin toward the same direction as the left drive 
+  motors when supplied with a positive power
+  */
+
+    // talon speed output \\
+    public double flMSpeedOutput;
+    public double frMSpeedOutput;
+    public double blMSpeedOutput;
+    public double brMSpeedOutput;
+
+    // talon positon outputs \\
+    public double flMPosOutput;
+    public double frMPosOutput;
+    public double blMPosOutput;
+    public double brMPosOutput;
+
   // hids \\ 
   public GenericHID xBox; 
   public Joystick arcadeJoystick; 
   public Joystick otherJoystick;
 
-  // drives \\
-  public MecanumDrive robotDrive; 
-
+  // test \\
+  public double degrees;
 
 
   @Override
@@ -81,17 +95,30 @@ public class Robot extends TimedRobot {
     backLeftMotor = new WPI_TalonSRX(canNumBackLeftMotor); 
     backRightMotor = new WPI_TalonSRX(canNumBackRightMotor); 
 
+      // motor speed outputs \\ 
+      flMSpeedOutput = frontLeftMotor.getMotorOutputPercent();
+      frMSpeedOutput = frontRightMotor.getMotorOutputPercent();
+      blMSpeedOutput = backLeftMotor.getMotorOutputPercent(); 
+      brMSpeedOutput = backRightMotor.getMotorOutputPercent(); 
+
+      // motor angles \\
+      flMPosOutput = frontLeftMotor.getSelectedSensorPosition();
+      frMPosOutput = frontRightMotor.getSelectedSensorPosition();
+      blMPosOutput = backLeftMotor.getSelectedSensorPosition();
+      brMPosOutput = backRightMotor.getSelectedSensorPosition();
+
+
     // hids \\
     arcadeJoystick = new Joystick(portArcadeJoystick); //sets joystick varibles to joysticks 
     otherJoystick = new Joystick(portOtherJoystick);
     xBox = new XboxController(portXboxController);
 
-    // drives \\
-    //robotDrive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 
 
-    // 
+   /* Shuffleboard.getTab("motor one speed")
+     .add("test", degrees);*/
   }
+
 
   @Override
   public void robotPeriodic() {}
@@ -111,8 +138,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     double y = -arcadeJoystick.getY(); //this is reversed
-    double x = arcadeJoystick.getX() * 1.1; // Counteract imperfect strafing
-    double rx = otherJoystick.getX();
+    double x = arcadeJoystick.getZ() * 1.1; // Counteract imperfect strafing
+    double rx = arcadeJoystick.getX();
 
     // Denominator is the largest motor power (absolute value) or 1
     // This ensures all the powers maintain the same ratio, but only when
@@ -127,6 +154,21 @@ public class Robot extends TimedRobot {
     backLeftMotor.set(backLeftPower);
     frontRightMotor.set(frontRightPower);
     frontLeftMotor.set(backRightPower);
+
+
+
+    CANCoder frontLeftCanCoder = new CANCoder(1);
+
+    if (arcadeJoystick.getRawButton(1)){
+      frontLeftCanCoder.getPosition();
+
+      degrees = frontLeftCanCoder.getPosition();
+
+      Shuffleboard.getTab("motor one speed")
+       .add("test", degrees);
+    }
+
+
 
   }
 

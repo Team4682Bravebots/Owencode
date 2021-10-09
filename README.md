@@ -1,46 +1,22 @@
 # Owen 2021
 
--
-Put motor and object ports in the //config section
--
-**Climber**
+First Documentation
+https://docs.wpilib.org/en/stable/docs/zero-to-robot/introduction.html
 
+WPILib Documentation
+https://first.wpi.edu/FRC/roborio/beta/docs/java/overview-summary.html
 
-Up = Y Button 
+WPILib VSC Download
 
+Drivers station/ frc utitalties download 
 
-Down = A Button
- 
+ (When prompted for a activation code restart computer with out closing any tabs, then relaunch the installer and it will skip the activation tab)
 
-
-
-**Intake** 
-
-
-Spin In = Left trigger 
-
-
-Spin out = Right trigger 
-
-
-**Arm Lift**
-
-
-Up = X button 
-
-
-Down = B button 
-
-
-
-**EMERGENCY STOP**
-
-
-Stop = ??? prob should make this a thing...
-
-
-
-
-
-*Controller Button Mapping* 
-https://1drv.ms/u/s!AtnniIfR4zy-gZ4beGPOn7DQC04xRA
+Falcon Motor 
+  Hardware maunal
+  http://www.ctr-electronics.com/downloads/pdf/Falcon%20500%20User%20Guide.pdf
+  Softwarre maunal 
+  
+  API
+  https://www.ctr-electronics.com/downloads/api/java/html/namespacecom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can.html
+  

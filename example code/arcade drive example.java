@@ -40,11 +40,6 @@ public class Robot extends TimedRobot {
 
   // motor controllers \\
   // speed controllers
-  private PWMVictorSPX inTakeLeft;
-  private PWMVictorSPX inTakeRight;
-  private PWMVictorSPX liftMotor;
-  private PWMVictorSPX climbMotor;
-  private PWMVictorSPX colorWheelMotor;
 
   // speed controller groups
   protected SpeedControllerGroup rightWheels;

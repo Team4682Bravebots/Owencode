@@ -11,12 +11,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -87,14 +87,29 @@ public class Robot extends TimedRobot {
   public double degrees;
 
 
+
+  
+  // toggle booleans \\
+  boolean toggleSol1On = false;
+  boolean toggleSol1Pressed = false;
+ 
+  boolean toggleCompOn = false;
+  boolean toggleCompPressed = false;
+
+
+  Compressor comp;
+  DoubleSolenoid solenoid1;
+
   @Override
   public void robotInit() {
-    // motors \\
+   // motors \\
     frontLeftMotor = new WPI_TalonSRX(canNumFrontLeftMotor);  //sets all motor varibles to talons 
     frontRightMotor = new WPI_TalonSRX(canNumFrontRightMotor);
     backLeftMotor = new WPI_TalonSRX(canNumBackLeftMotor); 
     backRightMotor = new WPI_TalonSRX(canNumBackRightMotor); 
 
+ 
+  
       // motor speed outputs \\ 
       flMSpeedOutput = frontLeftMotor.getMotorOutputPercent();
       frMSpeedOutput = frontRightMotor.getMotorOutputPercent();
@@ -114,14 +129,17 @@ public class Robot extends TimedRobot {
     xBox = new XboxController(portXboxController);
 
 
+    comp = new Compressor(); 
+    solenoid1 = new DoubleSolenoid(0, 1);
 
+    
    /* Shuffleboard.getTab("motor one speed")
      .add("test", degrees);*/
   }
 
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() { }
 
   @Override
   public void autonomousInit() {}
@@ -150,25 +168,35 @@ public class Robot extends TimedRobot {
     double frontRightPower = (y - x - rx) / denominator;
     double backRightPower = (y + x - rx) / denominator;
 
-    frontLeftMotor.set(frontLeftPower);
+    frontLeftMotor.set(frontLeftPower); 
     backLeftMotor.set(backLeftPower);
     frontRightMotor.set(frontRightPower);
-    frontLeftMotor.set(backRightPower);
+    backRightMotor.set(backRightPower);
 
 
 
-    CANCoder frontLeftCanCoder = new CANCoder(1);
+    
+      //Shuffleboard.getTab("motor one speed")
+       //.add("test", degrees);
+    
 
-    if (arcadeJoystick.getRawButton(1)){
-      frontLeftCanCoder.getPosition();
+    
+   
 
-      degrees = frontLeftCanCoder.getPosition();
-
-      Shuffleboard.getTab("motor one speed")
-       .add("test", degrees);
+    //phenumatics 
+    updateSol1Toggle();
+    if(toggleSol1On){
+      solenoid1.set(DoubleSolenoid.Value.kForward);  
+    }else{
+      solenoid1.set(DoubleSolenoid.Value.kReverse);
     }
 
-
+    updateCompToggle();
+    if(toggleCompOn){
+      comp.start();
+    }else{
+      comp.stop();
+    }  
 
   }
 
@@ -177,4 +205,44 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {}
+
+
+
+
+
+ 
+
+
+public void updateSol1Toggle(){
+  if(xBox.getRawButton(buttonA)){
+     if(!toggleSol1Pressed){
+        toggleSol1On = !toggleSol1On;
+        toggleSol1Pressed = true;
+    }
+  }else{
+     toggleSol1Pressed = false;
+  }
+}
+
+public void updateCompToggle(){
+   if(xBox.getRawButton(buttonO2)){
+     if(!toggleCompPressed){
+        toggleCompOn = !toggleCompOn;
+        toggleCompPressed = true;
+      }
+  }else{
+     toggleCompPressed = false;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -15,6 +15,8 @@ Drivers station/ frc utitalties download
  (When prompted for a activation code restart computer with out closing any tabs, then relaunch the installer and it will skip the activation tab)
 
 Falcon Motor 
+ - Ctre Electronics 
+ > https://github.com/CrossTheRoadElec
  - Hardware maunal
  >  http://www.ctr-electronics.com/downloads/pdf/Falcon%20500%20User%20Guide.pdf
  - Software maunal (read through this before trying to code anything, you need to download stuff)
